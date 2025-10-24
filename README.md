@@ -2,6 +2,19 @@
 
 A [MCP(Model Context Protocol)](https://www.anthropic.com/news/model-context-protocol) server for accessing Slack API. This server allows AI assistants to interact with the Slack API through a standardized interface.
 
+## Deployment Options
+
+This server supports multiple deployment options:
+
+1. **Local/Traditional Deployment** (TypeScript/Node.js)
+   - Stdio Transport: Process-based communication for local integration
+   - Streamable HTTP Transport: HTTP-based communication for web applications
+
+2. **Databricks Apps Deployment** (Python) ⭐ **NEW**
+   - Production-ready deployment on Databricks Apps
+   - Built with FastMCP and FastAPI
+   - See [DEPLOYMENT.md](DEPLOYMENT.md) for complete deployment guide
+
 ## Transport Support
 
 This server supports both traditional and modern MCP transport methods:
@@ -31,7 +44,26 @@ Available tools:
 
 ## Quick Start
 
-### Installation
+### For Databricks Apps Deployment (Python)
+
+See the comprehensive [DEPLOYMENT.md](DEPLOYMENT.md) guide for deploying to Databricks Apps.
+
+Quick steps:
+```bash
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Build the wheel
+uv build --wheel
+
+# Deploy using Databricks bundle CLI
+databricks bundle deploy -p <your-profile>
+databricks bundle run slack-mcp-server -p <your-profile>
+```
+
+### For Local/NPM Installation (TypeScript)
+
+#### Installation
 
 ```bash
 npm install @ubie-oss/slack-mcp-server

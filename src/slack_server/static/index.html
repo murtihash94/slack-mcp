@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slack MCP Server on Databricks Apps</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        
+        .status {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .tool-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .tool-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .tool-desc {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .endpoint {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin-top: 10px;
+        }
+        
+        code {
+            background: #e1e4e8;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e4e8;
+            color: #666;
+            font-size: 0.9em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Slack MCP Server</h1>
+        <p class="subtitle">Running on Databricks Apps</p>
+        <span class="status">✓ Online</span>
+        
+        <div class="section">
+            <h2>About</h2>
+            <p>This is a Model Context Protocol (MCP) server that provides AI assistants with standardized access to Slack APIs. It's deployed on Databricks Apps and supports both stdio and HTTP transport methods.</p>
+        </div>
+        
+        <div class="section">
+            <h2>Available Tools</h2>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-name">slack_list_channels</div>
+                    <div class="tool-desc">List public channels in the workspace</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">slack_post_message</div>
+                    <div class="tool-desc">Post a new message to a channel</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">slack_reply_to_thread</div>
+                    <div class="tool-desc">Reply to a message thread</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">slack_add_reaction</div>
+                    <div class="tool-desc">Add emoji reaction to a message</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">slack_get_channel_history</div>
+                    <div class="tool-desc">Get recent messages from a channel</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">slack_get_thread_replies</div>
+                    <div class="tool-desc">Get all replies in a thread</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">slack_get_users</div>
+                    <div class="tool-desc">Retrieve all users in workspace</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">slack_get_user_profiles</div>
+                    <div class="tool-desc">Get bulk user profile information</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">slack_search_messages</div>
+                    <div class="tool-desc">Search for messages with filters</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">slack_search_channels</div>
+                    <div class="tool-desc">Search for channels by name</div>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-name">slack_search_users</div>
+                    <div class="tool-desc">Search for users by name</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>MCP Endpoint</h2>
+            <div class="endpoint">
+                <strong>Streamable HTTP Transport:</strong><br>
+                <code>/mcp/</code>
+            </div>
+            <p style="margin-top: 10px; color: #666;">
+                Use this endpoint to connect MCP clients like Claude Desktop. Authentication is required via Bearer token.
+            </p>
+        </div>
+        
+        <div class="section">
+            <h2>Health Check</h2>
+            <div class="endpoint">
+                <code>GET /health</code>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <strong>Version 0.1.4</strong> | Built with FastMCP and Slack SDK
+        </div>
+    </div>
+</body>
+</html>
