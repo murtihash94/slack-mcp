@@ -44,8 +44,10 @@ class AppsBuildHook(BuildHookInterface):
 
         # write the name of the artifact to a requirements.txt file in the ./.build folder
         requirements_file = build_dir / "requirements.txt"
-
-        requirements_file.write_text(Path(artifact_path).name, encoding="utf-8")
+        
+        # Include uv in requirements for Databricks Apps deployment
+        requirements_content = f"uv\n{Path(artifact_path).name}"
+        requirements_file.write_text(requirements_content, encoding="utf-8")
 
         app_file = Path("app.yaml")
         if app_file.exists():

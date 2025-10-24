@@ -1,3 +1,5 @@
+# We only need `uv` in our requirements if deploying via apps CLI
+uv
 fastapi>=0.115.12
 mcp[cli]>=1.10.0
 uvicorn>=0.34.2
