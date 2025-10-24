@@ -2,6 +2,36 @@
 
 A [MCP(Model Context Protocol)](https://www.anthropic.com/news/model-context-protocol) server for accessing Slack API. This server allows AI assistants to interact with the Slack API through a standardized interface.
 
+## 📚 Table of Contents
+
+- [Deployment Options](#deployment-options)
+- [Transport Support](#transport-support)
+- [Features](#features)
+- [Quick Start](#quick-start)
+  - [For Databricks Apps Deployment (Python)](#for-databricks-apps-deployment-python)
+  - [For Local/NPM Installation (TypeScript)](#for-localnpm-installation-typescript)
+- [Usage](#usage)
+- [Implementation Pattern](#implementation-pattern)
+- [Development](#development)
+- [Contributing](#contributing)
+- [Documentation](#documentation)
+
+## Deployment Options
+
+This server supports multiple deployment options:
+
+1. **🚀 Databricks Apps Deployment** (Python) - **RECOMMENDED FOR PRODUCTION**
+   - Production-ready deployment on Databricks Apps
+   - Built with FastMCP and FastAPI
+   - Enterprise-grade security and scalability
+   - See [DEPLOYMENT.md](DEPLOYMENT.md) for complete guide
+   - Use the [quickstart.sh](quickstart.sh) script for easy deployment
+
+2. **💻 Local/Traditional Deployment** (TypeScript/Node.js)
+   - Stdio Transport: Process-based communication for local integration
+   - Streamable HTTP Transport: HTTP-based communication for web applications
+   - Great for development and Claude Desktop integration
+
 ## Transport Support
 
 This server supports both traditional and modern MCP transport methods:
@@ -31,7 +61,26 @@ Available tools:
 
 ## Quick Start
 
-### Installation
+### For Databricks Apps Deployment (Python)
+
+See the comprehensive [DEPLOYMENT.md](DEPLOYMENT.md) guide for deploying to Databricks Apps.
+
+Quick steps:
+```bash
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Build the wheel
+uv build --wheel
+
+# Deploy using Databricks bundle CLI
+databricks bundle deploy -p <your-profile>
+databricks bundle run slack-mcp-server -p <your-profile>
+```
+
+### For Local/NPM Installation (TypeScript)
+
+#### Installation
 
 ```bash
 npm install @ubie-oss/slack-mcp-server
@@ -149,3 +198,21 @@ For example, the `slack_list_channels` implementation parses the request with `L
 4. Commit your changes
 5. Push to the branch
 6. Create a Pull Request
+
+## Documentation
+
+- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Complete guide for deploying to Databricks Apps
+- **[MIGRATION.md](MIGRATION.md)** - Understanding the TypeScript to Python conversion
+- **[quickstart.sh](quickstart.sh)** - Automated deployment script
+- **[CLAUDE.md](CLAUDE.md)** - Development guidelines for AI assistants
+
+## License
+
+Apache-2.0 - See [LICENSE](LICENSE) for details
+
+## Support
+
+For issues and questions:
+- Slack MCP Server: [GitHub Issues](https://github.com/ubie-oss/slack-mcp-server/issues)
+- Databricks Apps: [Databricks Documentation](https://docs.databricks.com/apps/)
+- MCP Protocol: [Model Context Protocol](https://modelcontextprotocol.io/)

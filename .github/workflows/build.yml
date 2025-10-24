@@ -1,0 +1,71 @@
+name: Build and Test Python Package
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build-python:
+    name: Build Python Package
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+    
+    - name: Build wheel
+      run: uv build --wheel
+    
+    - name: Check build artifacts
+      run: |
+        ls -lh dist/
+        ls -lh .build/
+    
+    - name: Upload wheel artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-wheel
+        path: dist/*.whl
+        retention-days: 7
+    
+    - name: Upload build directory
+      uses: actions/upload-artifact@v4
+      with:
+        name: databricks-build
+        path: .build/
+        retention-days: 7
+
+  build-typescript:
+    name: Build TypeScript Package
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Lint
+      run: npm run lint
+    
+    - name: Build
+      run: npm run build
+    
+    - name: Check build artifacts
+      run: ls -lh dist/

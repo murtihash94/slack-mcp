@@ -1,0 +1,8 @@
+command: ["uv", "run", "slack-mcp-server"]
+env:
+  - name: SLACK_BOT_TOKEN
+    value: ""  # Set this to your Slack bot token
+  - name: SLACK_USER_TOKEN
+    value: ""  # Set this to your Slack user token
+  - name: SLACK_SAFE_SEARCH
+    value: "false"  # Set to "true" to enable safe search mode
