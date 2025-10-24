@@ -23,6 +23,9 @@ dev = [
     "hatchling>=1.27.0",
 ]
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/slack_server"]
+
 [tool.hatch.build.hooks.custom]
 path = "hooks/apps_build.py"
 
